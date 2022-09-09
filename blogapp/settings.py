@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "newapp",
     "users",
+    "socialauth",
 ]
 
 MIDDLEWARE = [
@@ -50,11 +52,16 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "social_django.middleware.SocialAuthExceptionMiddleware",
 ]
 
 ROOT_URLCONF = "blogapp.urls"
-AUTH_USER_MODEL = 'users.CustomUser'
-
+AUTH_USER_MODEL = "users.CustomUser"
+env = environ.Env()
+SOCIAL_SECRET = "password123"
+# SOCIAL_AUTH_FACEBOOK_KEY = env.int("FACEBOOK_APP_ID")
+# SOCIAL_AUTH_FACEBOOK_SECRET = env.str("FACEBOOK_SECRET_KEY")
+# SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
